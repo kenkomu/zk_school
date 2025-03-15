@@ -1,13 +1,14 @@
 use risc0_zkvm::guest::env;
 
 fn main() {
-    // TODO: Implement your guest code here
-
-    // read the input
-    let input: u32 = env::read();
-
-    // TODO: do something with the input
-
-    // write public output to the journal
-    env::commit(&input);
+    // Read the student ID (private data)
+    let student_id: u32 = env::read();
+    
+    // For simplicity, let's say valid student IDs are:
+    // 1. Between 10000 and 99999
+    // 2. Must be odd numbers
+    let is_valid = (student_id >= 10000 && student_id <= 99999) && (student_id % 2 == 1);
+    
+    // Only commit the validation result, not the actual ID
+    env::commit(&is_valid);
 }
